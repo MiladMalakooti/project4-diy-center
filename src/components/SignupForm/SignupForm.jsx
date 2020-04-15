@@ -13,6 +13,7 @@ class SignupForm extends Component {
   handleChange = e => {
     this.props.updateMessage("");
     this.setState({
+      // Using ES2015 Computed Property Names
       [e.target.name]: e.target.value
     });
   };
@@ -21,11 +22,12 @@ class SignupForm extends Component {
     e.preventDefault();
     try {
       await userService.signup(this.state);
+      // Let <App> know a user has signed up!
       this.props.handleSignupOrLogin();
       // Successfully signed up - show GamePage
       this.props.history.push("/");
     } catch (err) {
-      // Invalid user data catcher
+      // Invalid user data (probably duplicate email)
       this.props.updateMessage(err.message);
     }
   };
@@ -35,7 +37,6 @@ class SignupForm extends Component {
       this.state.name &&
       this.state.email &&
       this.state.password === this.state.passwordConf
-      // all conditions should be true to go forward
     );
   }
 
@@ -81,4 +82,5 @@ class SignupForm extends Component {
     );
   }
 }
+
 export default SignupForm;

@@ -8,8 +8,10 @@
     "@testing-library/user-event": "^7.2.1",
     "bcrypt": "^4.0.1",
     "morgan": "^1.10.0",
+    "node-gyp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1"
   },
   "scripts": {
