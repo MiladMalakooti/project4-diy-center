@@ -1,38 +1,40 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-
-class Navbar extends Component {
-  render() {
-    return (
-      <>
-        <nav className="nav-extended #37474f blue-grey darken-3">
-          <div className="nav-wrapper">
-            <Link to="" className="brand-logo">
-              D.I.Y Center
+function Navbar(props) {
+  return (
+    <>
+    <nav>
+      <div className="nav-wrapper">
+        <Link to="/" className="brand-logo">
+          <i className="material-icons"></i>DIY Center
+        </Link>
+        <ul className="right hide-on-med-and-down">
+          <li>
+            <Link to="">
+              <i className="material-icons">search</i>
             </Link>
-            <ul className="right hide-on-med-and-down">
-              <li>
-                <Link>about</Link>
-              </li>
-              <li>
-                <Link>sign in</Link>
-              </li>
-              <li>
-                <Link to='/signup'>sign up</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="nav-content">
-            <span className="nav-title"></span>
-            <Link className="btn-floating btn-large halfway-fab waves-effect waves-light teal #e65100 orange darken-4">
-              <i className="material-icons">add</i>
+          </li>
+          <li>
+            <Link to={`/${props.user.user_name}`}>
+              <i className="material-icons">view_module</i>
             </Link>
-          </div>
-        </nav>
-        <div>HomePage</div>
-      </>
-    );
-  }
+          </li>
+          <li>
+            <Link to="/create-post">
+              <i className="material-icons">file_upload</i>
+            </Link>
+          </li>
+          <li>
+            <Link to="" onClick={props.handleLogout}>
+              <i className="material-icons">keyboard_backspace</i>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </>
+ );
 }
+
 export default Navbar;
