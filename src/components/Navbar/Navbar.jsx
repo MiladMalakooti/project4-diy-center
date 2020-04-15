@@ -9,7 +9,7 @@ class Navbar extends Component {
         <nav className="nav-extended #37474f blue-grey darken-3">
           <div className="nav-wrapper">
             <Link to="" className="brand-logo">
-              DIY Center
+              D.I.Y Center
             </Link>
             <ul className="right hide-on-med-and-down">
               <li>
