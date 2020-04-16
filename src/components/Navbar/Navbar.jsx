@@ -1,38 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar(props) {
   return (
     <>
     <nav>
-      <div className="nav-wrapper">
-        <Link to="/" className="brand-logo">
-          <i className="material-icons"></i>DIY Center
-        </Link>
-        <ul className="right hide-on-med-and-down">
-          <li>
-            <Link to="">
-              <i className="material-icons">search</i>
-            </Link>
-          </li>
-          <li>
-            <Link to={`/${props.user.user_name}`}>
-              <i className="material-icons">view_module</i>
-            </Link>
-          </li>
-          <li>
-            <Link to="/create-post">
-              <i className="material-icons">file_upload</i>
-            </Link>
-          </li>
-          <li>
-            <Link to="" onClick={props.handleLogout}>
-              <i className="material-icons">keyboard_backspace</i>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <div className="navbar navbar-bright navbar-expand-lg">
+        <Link to="/" className="navbar-brand"> DIY Center</Link>
+        
+        <button
+          className="navbar-toggler" type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+             <span className="navbar-toggler-icon" />
+          </button>
+          <div className= "collapse navbar-collapse" id="navbarNav">
+            <ul className='navbar-nav'>
+              <li className='nav-item'> 
+                <Link className='nav-link' to=''>Search</Link>
+              </li>
+
+              <li className='nav-item'>
+                <Link className='nav-link' to={`/${props.user.user_name}`}>Profile</Link>
+              </li>
+
+              <li className='nav-item'>
+                <Link className='nav-link' to='/create-post'>Create Post</Link>
+              </li>
+              
+              <li className='nav-item'>
+                <Link className='nav-link' to='' onClink={props.handleLogout}>Log Out</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+     </nav>
   </>
  );
 }

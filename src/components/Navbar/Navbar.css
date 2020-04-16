@@ -1,0 +1,50 @@
+.floating-menu {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    height: 42px;
+    text-align: right;
+    transition: height 250ms ease-in-out;
+  }
+  
+  .floating-menu.open {
+    height: 310px;
+    overflow: hidden;
+  }
+  
+  .floating-menu.open .floating-menu-item {
+    margin-top: 8px;
+  }
+  
+  .floating-menu-item label {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #cde9d3;
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+  }
+  
+  .floating-menu.open .floating-menu-item label {
+    opacity: 0.4;
+  }
+  
+  .floating-menu-icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 59px;
+    vertical-align: middle;
+    background: #cde9d3;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 4px rgba(160, 224, 233, 0.657);
+    text-align: center;
+  }
+  
+  .floating-menu-icon .material-icons {
+    font-size: 32px;
+    color: rgb(232, 235, 228);
+    vertical-align: middle;
+  }

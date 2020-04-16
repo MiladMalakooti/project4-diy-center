@@ -27,7 +27,7 @@ class ProfilePage extends Component {
                 </div>
               ))
             ) : (
-              <img src="./images/loading3.gif" alt="" />
+              <img src="./images/buffering.gif" alt="" />
             )}
           </div>
         </div>

@@ -22,7 +22,7 @@ class LoginPage extends Component {
       // Successfully signed up - show GamePage
       this.props.history.push("/");
     } catch (err) {
-      alert("Invalid Credentials!");
+      alert("Invalid Inputs!");
     }
   };
 

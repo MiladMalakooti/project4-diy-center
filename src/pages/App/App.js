@@ -31,6 +31,49 @@ class App extends Component {
     this.setState({ userPosts });
   };
 
+  handleLikeButton = postId => {
+    let postsCopy = [...this.state.posts];
+    let userCopy = { ...this.state.user };
+    postsCopy.forEach(async p => {
+      if (p._id === postId) {
+        if (p.likes.includes(userCopy.email)) {
+          p.likes.splice(userCopy.email, 1);
+        } else {
+          p.likes.push(userCopy.email);
+        }
+        await postService.addLike({ postId: p._id, userCopy });
+      }
+    });
+    this.setState({ posts: postsCopy });
+  };
+  handleCommentSubmit = (posts) => {
+    this.setState({posts});
+  };
+  handleCommentDelete = (post, comment) => {
+    let postsCopy = [...this.state.posts];
+    let postCopy = postsCopy.filter(p=> {return p._id === post._id});
+    console.log(postCopy)
+    postsCopy[0].comments.filter( (c, i) => {
+      if(c._id === comment._id){
+        postsCopy[0].comments.splice(i, 1);
+    }});
+    postService.removeComment({post, comment});
+    this.setState({posts: postsCopy})
+  }
+  handlePostDelete = (post) => {
+    const userPostsCopy = {...this.state.userPosts}
+    const userPosts = this.state.userPosts.posts.filter( (p)=>{
+      return p._id !== post._id
+    })
+    postService.deletePost(post)
+    userPostsCopy.posts = userPosts;
+    this.setState({userPosts: userPostsCopy})
+  }
+  handlePostUpdate = (userPosts) => {
+    this.setState({userPosts})
+  }
+
+
   async componentDidMount() {
     const user = userService.getUser();
     const posts = await postService.index();
@@ -55,8 +98,11 @@ class App extends Component {
                     <HomePage
                       Posts={this.state.posts}
                       user={userService.getUser()}
-                      handleLogout={this.handleLogout}
+                      handleCommentSubmit={this.handleCommentSubmit}
+                      handleLikeButton={this.handleLikeButton}
+                      handleCommentDelete={this.handleCommentDelete}
                       handleUpdatePosts={this.handleUpdatePosts}
+                      handleLogout={this.handleLogout}
                     />
                   ) : (
                     <div />
@@ -84,7 +130,10 @@ class App extends Component {
                     <ProfilePage
                       {...props}
                       user={userService.getUser()}
-                      userIndex={this.state.userPosts}
+                      userPosts={this.state.userPosts}
+                      handlePostUpdate={this.handlePostUpdate}
+                      handlePostDelete={this.handlePostDelete}
+                      handleUpdateUserPosts={this.handleUpdatePosts}
                     />
                   ) : (
                     <LoginPage />
