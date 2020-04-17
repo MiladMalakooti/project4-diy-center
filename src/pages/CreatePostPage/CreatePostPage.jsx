@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CreatePost from "../../components/CreatePost/CreatePost";
 import postService from '../../utils/postService'
 
 
