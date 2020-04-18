@@ -1,20 +1,23 @@
-import "./App.css";
-import React, { Component } from "react";
-import userService from "../../utils/userService";
-import postService from "../../utils/postService";
-import BaseView from "../../components/BaseView/BaseView";
-import NavBar from "../../components/Navbar/Navbar";
-import SignupPage from "../SignupPage/SignupPage";
-import { Switch, Route, Redirect } from "react-router-dom";
-import LoginPage from "../LoginPage/LoginPage";
-import ProfilePage from "../ProfilePage/ProfilePage";
-import HomePage from "../HomePage/HomePage";
-import CreatePostPage from "../CreatePostPage/CreatePostPage";
+import './App.css';
+import React, { Component } from 'react';
+import userService from '../../utils/userService';
+import postService from '../../utils/postService';
+import BaseView from '../../components/BaseView/BaseView';
+import NavBar from '../../components/Navbar/Navbar';
+import SignupPage from '../SignupPage/SignupPage';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import LoginPage from '../LoginPage/LoginPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import HomePage from '../HomePage/HomePage';
+import CreatePostPage from '../CreatePostPage/CreatePostPage';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { user: null, posts: null, userPosts: null };
+    this.state = { 
+      user: null, 
+      posts: null, 
+      userPosts: null };
   }
   handleSignupOrLogin = () => {
     this.setState({ user: userService.getUser() });
@@ -92,7 +95,7 @@ class App extends Component {
             <Switch>
               <Route
                 exact
-                path="/"
+                path='/'
                 render={() =>
                   userService.getUser() ? (
                     <HomePage
@@ -111,7 +114,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/create-post"
+                path='/create-post'
                 render={({ history }) =>
                   userService.getUser() ? (
                     <CreatePostPage
@@ -119,12 +122,12 @@ class App extends Component {
                       user={userService.getUser()}
                     />
                   ) : (
-                    <Redirect to="/login" />
+                    <Redirect to='/login' />
                   )
                 }
               />
               <Route
-                path="/:username"
+                path='/:username'
                 render={props =>
                   userService.getUser() ? (
                     <ProfilePage
@@ -148,7 +151,7 @@ class App extends Component {
             <Switch>
               <Route
                 exact
-                path="/login"
+                path='/login'
                 render={({ history }) => (
                   <LoginPage
                     history={history}
@@ -159,7 +162,7 @@ class App extends Component {
 
               <Route
                 exact
-                path="/signup"
+                path='/signup'
                 render={({ history }) => (
                   <SignupPage
                     history={history}

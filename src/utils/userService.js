@@ -1,6 +1,12 @@
 import tokenService from './tokenService';
-
 const BASE_URL = '/api/users/';
+
+export default {
+  signup, 
+  getUser,
+  logout,
+  login
+};
 
 
 function signup(user) {
@@ -14,6 +20,7 @@ function signup(user) {
     throw new Error('Email is taken!');
   })
 
+  
   .then(({token}) => tokenService.setToken(token));
 
 }
@@ -39,9 +46,3 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
-export default {
-  signup, 
-  getUser,
-  logout,
-  login
-};

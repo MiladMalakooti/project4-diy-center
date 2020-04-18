@@ -79,7 +79,7 @@ class SignupForm extends Component {
           </div>
 
           <div className="form-group">
-            <label for="exampleInputPassword1">Enter Your Email</label>
+            <label forhtml="exampleInputPassword1">Enter Your Email</label>
           <input
             type="email"
             className="form-control"
@@ -90,7 +90,7 @@ class SignupForm extends Component {
           </div>
 
           <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label forhtml="exampleInputPassword1">Password</label>
             <input
               type="password"
               className="form-control"
@@ -101,7 +101,7 @@ class SignupForm extends Component {
             </div>
 
           <div className="form-group">
-            <label for="exampleInputPassword1">Repeat password</label>
+            <label forhtml="exampleInputPassword1">Repeat password</label>
           <input
             className="form-control"
             type="password"

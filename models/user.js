@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 6;
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     avatar: String,
     posts: [{
       type: Schema.Types.ObjectId,
-      ref: "Post"
+      ref: 'Post'
     }],
     bio: String,
     notifications: [String],
@@ -23,16 +23,17 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.set("toJSON", {
+userSchema.set('toJSON', {
   transform: function(doc, ret) {
     delete ret.password;
     return ret;
   }
 });
 
-userSchema.pre("save", function(next) {
+userSchema.pre('save', function(next) {
   const user = this;
-  if (!user.isModified("password")) return next();
+  if (!user.isModified('password')) return next();
+  // password has changed - salt and hash
   bcrypt.hash(user.password, SALT_ROUNDS, function(err, hash) {
     if (err) return next(err);
     user.password = hash;
@@ -47,4 +48,4 @@ userSchema.methods.comparePassword = function(tryPassword, cb) {
   });
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

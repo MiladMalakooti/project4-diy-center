@@ -4,7 +4,8 @@ const SECRET = process.env.SECRET;
 
 module.exports = {
   signup,
-  login
+  login,
+  getAllUsers
 };
 
 async function signup(req, res) {
@@ -34,6 +35,11 @@ async function login(req, res) {
   } catch (err) {
     return res.status(401).json(err);
   }
+}
+
+async function getAllUsers(req, res) {
+ const users = await User.find({}).populate('posts');
+ res.json(users);
 }
 
 /*----- Helper Functions -----*/
