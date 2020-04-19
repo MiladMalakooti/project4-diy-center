@@ -31,7 +31,7 @@ function Navbar(props) {
               </li>
               
               <li className='nav-item'>
-                <Link className='nav-link' to='' onClink={props.handleLogout}>Log Out</Link>
+                <Link className='nav-link' to='' onClick={props.handleLogout}>Log Out</Link>
               </li>
             </ul>
           </div>
