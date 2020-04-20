@@ -11,7 +11,7 @@ function Home() {
           style={{ width: "45%" }}
           alt=""
         />
-        <footer
+        {/* <footer
           style={{
             backgroundColor: "lightblue",
             color: "white",
@@ -22,7 +22,7 @@ function Home() {
           }}
         >
           <h5>Ⓒ<script>document.write( new Date().getFullYear() );</script></h5>
-        </footer>
+        </footer> */}
       </div>
     );
   }

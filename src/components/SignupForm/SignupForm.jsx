@@ -49,7 +49,7 @@ class SignupForm extends Component {
         <form
         style={{
             display: "flex",
-            backgroundColor: "rgb(216, 77, 66)",
+            backgroundColor: "rgb(97, 228, 237)",
             flexDirection: "column",
             alignItems: "center",
             width: "70vw",

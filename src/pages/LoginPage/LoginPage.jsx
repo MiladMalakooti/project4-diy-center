@@ -35,7 +35,7 @@ class LoginPage extends Component {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: "rgb(66, 206, 216)",
+            backgroundColor: "rgb(97, 228, 237)",
             width: "70vw",
             padding: "30px",
             margin: "0 auto",
@@ -86,7 +86,7 @@ class LoginPage extends Component {
             <Link to="/">Cancel</Link>
           </div>
         </form>
-        <footer
+        {/* <footer
           style={{
             backgroundColor: "rgb(66, 181, 216)",
             color: "white",
@@ -97,7 +97,7 @@ class LoginPage extends Component {
           }}
         > 
         <h5>Ⓒ<script>document.write( new Date().getFullYear() );</script></h5>
-        </footer>
+        </footer> */}
       </div>
     );
   }

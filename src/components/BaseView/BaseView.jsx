@@ -144,7 +144,7 @@ function ButtonBases(props) {
           </Link>
         </ButtonBase>
       ))}
-      <h1 style={{ color: 'rgb(216, 77, 66)' }}>DIY Center</h1>
+      <h1 style={{ color: 'rgb(97, 228, 237)' }}>DIY Center</h1>
     </div>
   );
 }

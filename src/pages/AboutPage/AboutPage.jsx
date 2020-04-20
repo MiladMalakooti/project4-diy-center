@@ -9,7 +9,7 @@ function AboutPage() {
       like and leave comments for each post.
 
       </h4>
-      <footer
+      {/* <footer
         style={{
           backgroundColor: "#19aeb1",
           color: "white",
@@ -20,7 +20,7 @@ function AboutPage() {
         }}
       >
         <h5>Ⓒ<script>document.write( new Date().getFullYear() );</script></h5>
-      </footer>
+      </footer> */}
     </>
   );
 }

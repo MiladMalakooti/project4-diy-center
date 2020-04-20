@@ -329,7 +329,7 @@ class ProfilePage extends Component {
             </Card>
           ))
         ) : (
-          <img style={{ margin: '0 auto' }} src='./images/loading.gif' alt='' />
+          <img style={{ margin: '0 auto' }} src='./images/buffering.gif' alt='' />
         )}
       </div>
     );
