@@ -14,7 +14,7 @@ DIY Center is a social media platform for people to share their DIY projects.
 
 ![Sign Up Page](https://imgur.com/wFa8KHJ.png)  
 
-![Home Page After Login](https://imgur.com/tIXQBUe.png)
+![Home Page After Login](https://imgur.com/B5D4kLg.png)
 
 
 # Technologies Used
