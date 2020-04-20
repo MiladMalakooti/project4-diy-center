@@ -5,7 +5,8 @@ export default {
   signup, 
   getUser,
   logout,
-  login
+  login,
+  getAllUsers
 };
 
 
@@ -46,3 +47,10 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
+function getAllUsers() {
+  const options = {
+    method: 'GET',
+    headers: new Headers({'Content-Type': 'application/json'}),
+  }  
+  return fetch(BASE_URL + 'users', options).then( res=>res.json() )
+}

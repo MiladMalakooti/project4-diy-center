@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
-import postService from "../../utils/postService";
 import userService from "../../utils/userService";
-import "./ProfilePage.css";
+import { Route} from "react-router-dom";
+import { Link } from "react-router-dom";
+import postService from "../../utils/postService";
+import PropTypes from "prop-types";
 import EditPost from "../../components/EditPost/EditPost";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import classnames from "classnames";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -22,109 +21,68 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import classnames from "classnames";
 
 const styles = theme => ({
-  card: {
-    maxWidth: "90%",
-    margin: "20px 10%"
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // standard horizontal ratio (16 ÷ 9)
-  },
-  actions: {
-    display: "flex"
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
-  avatar: {
-    backgroundColor: red[500]
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: "60vw"
-  }
-});
-
-class ProfilePage extends Component {
-  state = { expanded: false, comment: "", user_name: "", user_id: null };
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  }
-  handleCommentSubmit = e => {
-    e.preventDefault();
-    const user = userService.getUser();
-    let userPostsCopy = {...this.props.userPosts};
-    console.log(userPostsCopy)
-    console.log(e.target.id)
-    let postCopy = { ...userPostsCopy.posts[e.target.id] };
-    console.log( postCopy )
-    if (this.state.comment.length > 0) {
-      postCopy.comments.push({
-        comment: this.state.comment,
-        user_name: user.user_name,
-        user_id: user._id
-      });
-      postService.addComment({
-        comment: this.state.comment,
-        user_name: user.user_name,
-        user_id: user._id,
-        userInfo: user,
-        postInfo: postCopy
-      });
+    card: {
+      maxWidth: "90%",
+      margin: "20px 10%"
+    },
+    media: {
+      height: 0,
+      paddingTop: "56.25%" // Standard horizontal ratio (16 ÷ 9)
+    },
+    actions: {
+      display: "flex"
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest
+      })
+    },
+    expandOpen: {
+      transform: "rotate(180deg)"
+    },
+    avatar: {
+      backgroundColor: red[500]
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: "60vw"
     }
-    this.props.handleCommentSubmitOnProfile(userPostsCopy);
-    this.setState({ comment: "" });
+  });
+class UserSearchedProfile extends Component {
+  state = {
+    queryData: null
   };
+
   async componentDidMount() {
-    const posts = await postService.userIndex();
-    this.props.handleUpdateUserPosts(posts);
+    const users = await this.props.users;
+    const queryData = users.filter(u => {
+      return u.user_name === this.props.match.params.username;
+    });
+    this.setState({ queryData });
+    console.log(this.state.queryData);
   }
+  
   render() {
     const { classes } = this.props;
     return (
-      <>
-        <div style={{ height: "100px" }} />
-        {this.props.userPosts ? (
-          this.props.userPosts.posts.map((p, i) => (
+      <div style={{ paddingTop: "200px" }}>
+        {this.state.queryData ? (
+          this.state.queryData[0].posts.map((p, i) => (
             <Card className={classes.card} key={`card${i}`}>
               <CardHeader
                 avatar={
                   <Avatar aria-label="Recipe" className={classes.avatar}>
-                    {this.props.userPosts.first_name[0]}
+                    {this.state.queryData[0].first_name[0]}
                   </Avatar>
                 }
-                action={
-                  <>
-                    <IconButton
-                      onClick={() => this.props.handlePostDelete(p)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                    <Link
-                      to={`/${this.props.userPosts.user_name}/edit-profile/${
-                        p._id
-                      }`}
-                    >
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                  </>
-                }
-                title={this.props.userPosts.user_name}
+            
+                title={this.state.queryData[0].user_name}
                 subheader={p.createdAt}
               />
               <iframe title={`frameTitle${i}`} key={`frame${i}`} src={p.url} />
@@ -140,7 +98,7 @@ class ProfilePage extends Component {
                 {p.caption ? (
                   <Typography component="p">
                     <span style={{ fontWeight: "900" }}>
-                      {this.props.userPosts.user_name}:&nbsp;{" "}
+                      {this.state.queryData[0].user_name}:&nbsp;{" "}
                     </span>
                     {p.caption}
                   </Typography>
@@ -150,7 +108,7 @@ class ProfilePage extends Component {
               </CardContent>
               <Route
                 exact
-                path={`/:${this.props.userPosts.user_name}/edit-profile/:${
+                path={`/:${this.state.queryData[0].user_name}/edit-profile/:${
                   p._id
                 }`}
                 render={({ history }) => (
@@ -256,15 +214,11 @@ class ProfilePage extends Component {
             </Card>
           ))
         ) : (
-          <img src="./images/buffering.gif" alt="" />
+          <p />
         )}
-      </>
+      </div>
     );
   }
 }
 
-ProfilePage.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(ProfilePage);
+export default withStyles(styles)(UserSearchedProfile);

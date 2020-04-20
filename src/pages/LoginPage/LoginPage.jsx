@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import userService from "../../utils/userService";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 class LoginPage extends Component {
   state = {
@@ -28,37 +30,58 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className='container'>
-        <form onSubmit={this.handleSubmit}>
-          <div className='form-group'>
-            <label>Email Adderss</label>
-            <input type="email"
-            placeholder="Email Address"
-            autoComplete='off'
-            name='email'
+      <div>
+        <form style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"}}
+        >
+
+        <TextField
+            required
+            onChange={this.handleChange}
             value={this.state.email}
-            onChange={this.handleChange}/>
-            <small id="emailHelp" className="form-text text-muted">
-              Your information remains confidetial.
-            </small>
+            placeholder="Email"
+            label="Email"
+            margin="normal"
+            variant="outlined"
+            type="email"
+            autoComplete="off"
+            name="email"
+            style={{ width: "50vw" }}
+          />
+
+          <small id="emailHelp" className="form-text text-muted">
+            We Keep Your Information Safe
+          </small>
+
+          <TextField
+            onChange={this.handleChange}
+            value={this.state.pw}
+            required
+            label="Password"
+            margin="normal"
+            variant="outlined"
+            type="password"
+            placeholder="Password"
+            autoComplete="off"
+            name="pw"
+            style={{ width: "50vw" }}
+          />
+          <div>
+            <Button 
+            onClick={this.handleSubmit} 
+            size="large" 
+            variant="outlined" 
+            color="primary"> Log In </Button>
+
+            &nbsp;&nbsp;&nbsp;
+
+            <Link to="/">Cancel</Link>
           </div>
-          <div className='form-group'>
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              autoComplete="off"
-              name="pw"
-              value={this.state.pw}
-              onChange={this.handleChange}
-            />
-          </div>
-          <button className="btn btn-primary">Log In</button>
-          &nbsp;&nbsp;&nbsp;
-          <Link to="/">Cancel</Link>
         </form>
       </div>
     );
-    } }
+  }
+}
 export default LoginPage;

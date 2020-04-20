@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import postService from '../../utils/postService'
+import postService from '../../utils/postService';
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 
 class CreatePostPage extends Component {
@@ -26,35 +29,57 @@ class CreatePostPage extends Component {
   render() {
     return (
       <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Enter Your Post's URL </label>
-            <input
-              name="url"
-              className="form-control"
-              placeholder="URL"
-              required
-              type="url"
-              onChange={this.handleChange}
-              value={this.state.url}
-            />
-          </div>
+        <div style={{height: '100px'}} />
+        <form onSubmit={this.handleSubmit}
+        style={{ display: "flex", flexDirection: "column" }}>
 
-          <div className="form-group">
-            <label>Description...</label>
-            <textarea
-              className="form-control"
-              onChange={this.handleChange}
-              placeholder="Description..."
-              name="caption"
-              cols="40"
-              rows="20"
-              value={this.state.caption}
-            />
+          <TextField
+          required
+          onChange={this.handleChange}
+          placeholder="Project's URL..."
+          fullWidth
+          id="outlined-name"
+          label="Project's URL"
+          margin="normal"
+          variant="outlined"
+          type="url"
+          name="url"
+          value={this.state.url} />
+
+            <br />
+          <TextField
+            required
+            value={this.state.caption}
+            onChange={this.handleChange}
+            fullWidth
+            placeholder="Description"
+            name="caption"
+            margin="normal"
+            variant="outlined"
+            id="outlined-name"
+            label="Description"
+          />
+
+            <br />
+          <div>
+            <Button
+              value="upload"
+              type="submit"
+              size="large"
+              variant="outlined"
+              color="primary"
+            >
+              Post &nbsp;
+              <i className="fas fa-cloud-upload-alt" />
+            </Button>
+            <Link style={{ marginLeft: "20px" }} to="/">
+              Cancel
+            </Link>
           </div>
-          <input className="btn btn-primary" type="submit" value="upload" />
         </form>
       </div>
     );
-  } }
+  }
+}
+
 export default CreatePostPage;

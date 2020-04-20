@@ -32,7 +32,8 @@ userSchema.set('toJSON', {
 
 userSchema.pre('save', function(next) {
   const user = this;
-  if (!user.isModified('password')) return next();
+  if (!user.isModified('password')) 
+    return next();
   // password has changed - salt and hash
   bcrypt.hash(user.password, SALT_ROUNDS, function(err, hash) {
     if (err) return next(err);

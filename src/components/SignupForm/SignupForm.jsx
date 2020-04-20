@@ -1,19 +1,21 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import userService from "../../utils/userService";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import userService from '../../utils/userService';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class SignupForm extends Component {
   state = {
-    first_name: "",
-    last_name: "",
-    user_name: "",
-    email: "",
-    password: "",
-    passwordConf: ""
+    first_name: '',
+    last_name: '',
+    user_name: '',
+    email: '',
+    password: '',
+    passwordConf: ''
   };
 
   handleChange = e => {
-    this.props.updateMessage("");
+    this.props.updateMessage('');
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -25,7 +27,7 @@ class SignupForm extends Component {
       await userService.signup(this.state);
       this.props.handleSignupOrLogin();
       // Successfully signed up - show GamePage
-      this.props.history.push("/");
+      this.props.history.push('/');
     } catch (err) {
       this.props.updateMessage(err.message);
     }
@@ -44,78 +46,101 @@ class SignupForm extends Component {
   render() {
     return (
       <div className='container'>
-        <form onSubmit={this.handleSubmit}>
-          <div className='form-group'>
-            <label htmlFor="exampleInputPassword">Enter Your First Name</label>
-            <input
-             type="text"
-             className='form-control'
-             placeholder='First Name'
-             value={this.state.first_name}
-             name='first_name'
-             onChange={this.handleChange} />
-          </div>
-
-          <div className='form-control'>
-            <label htmlFor="exampleInputPassword">Enter Your Last Name</label>
-            <input type="text"
-            className='form-control'
+        <form
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'}}
+        >
+          <TextField
+            placeholder='First Name'
+            required
+            value={this.state.first_name}
+            onChange={this.handleChange}
+            name='first_name'
+            label='First Name'
+            margin='normal'
+            variant='outlined'
+            type='text'
+            style={{ width: '50vw' }}
+          />
+          <TextField
+            required
+            onChange={this.handleChange}
+            style={{ width: '50vw' }}
+            label='Last Name'
+            margin='normal'
+            variant='outlined'
+            type='text'
             placeholder='Last Name'
             value={this.state.last_name}
             name='last_name'
-            onChange={this.handleChange} />
-          </div>
-
-          <div className='form-control'>
-          <label htmlFor="exampleInputPassword">Choose a Username</label>
-          <input
-             type="text"
-             className='form-control'
-             placeholder='User Name'
-             value={this.state.user_name}
-             name='user_name'
-             onChange={this.handleChange}
-             />
-          </div>
-
-          <div className="form-group">
-            <label forhtml="exampleInputPassword1">Enter Your Email</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Email"
+          />
+          <TextField
+            required
+            style={{ width: '50vw' }}
+            label='User Name'
+            margin='normal'
+            variant='outlined'
+            type='text'
+            placeholder='User Name'
+            value={this.state.user_name}
+            name='user_name'
+            onChange={this.handleChange}
+          />
+          <TextField
+            required
+            style={{ width: '50vw' }}
+            label='Email'
+            margin='normal'
+            variant='outlined'
+            type='email'
+            placeholder='Email'
             value={this.state.email}
-            name="email"
-            onChange={this.handleChange} />
-          </div>
-
-          <div className="form-group">
-            <label forhtml="exampleInputPassword1">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              value={this.state.password}
-              name="password"
-              onChange={this.handleChange} />
-            </div>
-
-          <div className="form-group">
-            <label forhtml="exampleInputPassword1">Repeat password</label>
-          <input
-            className="form-control"
-            type="password"
-            placeholder="Repeat Password"
+            name='email'
+            onChange={this.handleChange}
+          />
+          <TextField
+            required
+            style={{ width: '50vw' }}
+            label='Password'
+            margin='normal'
+            variant='outlined'
+            type='password'
+            placeholder='Password'
+            value={this.state.password}
+            name='password'
+            onChange={this.handleChange}
+          />
+          <TextField
+            required
+            style={{ width: '50vw' }}
+            label='Confirm Password'
+            margin='normal'
+            variant='outlined'
+            type='password'
+            placeholder='Confirm Password'
             value={this.state.passwordConf}
-            name="passwordConf"
-            onChange={this.handleChange}/>
+            name='passwordConf'
+            onChange={this.handleChange}
+          />
+          <div>
+            <Button
+              disabled={this.isFormInvalid()}
+              size='large'
+              variant='outlined'
+              color='primary'
+              onClick={this.handleSubmit}
+            >
+              Sign Up
+            </Button>
+            &nbsp;&nbsp;
+            <Link to='/'>Cancel</Link>
           </div>
-
-          <button className="btn" disabled={this.isFormInvalid()}> Sign Up </button>
-          &nbsp;&nbsp;
-          <Link to="/">Cancel</Link>
         </form>
-        </div>
+      </div>
     );
-  } }
-export default SignupForm
+  }
+}
+
+export default SignupForm;
