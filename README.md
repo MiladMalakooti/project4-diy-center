@@ -30,6 +30,7 @@ DIY Center is a social media platform for people to share their DIY projects.
 ## JSON
 
 
+
 # [Trello](https://trello.com/b/3ZgZk8yv/diy-center)
 
 
@@ -37,7 +38,7 @@ DIY Center is a social media platform for people to share their DIY projects.
 
 ## IceBox
 This project still needs more time to be used for public use, some of the missing features are:
-*Message (Between Memebers)
-*Notification
-*Being able to upload pictures
-*Beign able to see other memebers' profile 
+* Message (Between Memebers)
+* Notification
+* Being able to upload pictures
+* Beign able to see other memebers' profile 
