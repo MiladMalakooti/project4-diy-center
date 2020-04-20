@@ -9,12 +9,12 @@ class HomePage extends Component {
       <main>
         <Feed
           className='Feed'
-          projects={this.props.projects}
+          posts={this.props.posts}
           user={this.props.user}
           handleCommentSubmit={this.props.handleCommentSubmit}
           handleLikeButton={this.props.handleLikeButton}
           handleLogout={this.props.handleLogout}
-          handleUpdateProjects={this.props.handleUpdateProjects}
+          handleUpdatePosts={this.props.handleUpdatePosts}
           handleCommentDelete={this.props.handleCommentDelete}
         />
         <SideNav className="sideNav" />

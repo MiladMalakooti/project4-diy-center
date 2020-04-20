@@ -81,6 +81,7 @@ class HomePage extends Component {
     this.props.handleCommentSubmit(postsCopy);
     this.setState({ comment: '' });
   };
+  
   async componentDidMount() {
     const posts = await postService.index();
     this.props.handleUpdatePosts(posts);
@@ -88,6 +89,7 @@ class HomePage extends Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+  
 
   render() {
     const { classes } = this.props;

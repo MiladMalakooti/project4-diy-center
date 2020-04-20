@@ -5,7 +5,10 @@ const SECRET = process.env.SECRET;
 module.exports = {
   signup,
   login,
-  getAllUsers
+  getAllUsers,
+  getUserFromServer,
+  getNotifications,
+  updateProfile
 };
 
 async function signup(req, res) {
@@ -50,4 +53,26 @@ function createJWT(user) {
     SECRET,
     {expiresIn: '24h'}
   );
+}
+
+async function getUserFromServer(req, res) {
+  User.findById({ _id: req.user._id }, async function(err, user) {
+    await res.json(user);
+  });
+}
+
+async function getNotifications(req, res) {
+  User.findById({ _id: req.user._id }, async function(err, user) {
+    await res.json(user.notifications);
+  });
+}
+
+async function updateProfile(req, res) {
+  User.findOne({ _id: req.user._id }, async function(err, user) {
+    if (req.body.instagram) user.instagram = req.body.instagram;
+    if (req.body.pinterest) user.pinterest = req.body.pinterest;
+    if (req.body.pinterest) user.pinterest = req.body.pinterest;
+    if (req.body.bio) user.bio = req.body.bio;
+    await user.save();
+  });
 }

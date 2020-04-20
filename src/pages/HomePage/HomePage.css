@@ -19,7 +19,7 @@
       grid-template-columns: 1fr 4fr; 
     }
   
-    .newsFeed {
+    .Feed {
       grid-area: newsFeed;
       
     }

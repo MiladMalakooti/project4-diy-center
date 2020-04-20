@@ -30,11 +30,17 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{}}>
         <form style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"}}
+            alignItems: "center",
+            backgroundColor: "rgb(66, 206, 216)",
+            width: "70vw",
+            padding: "30px",
+            margin: "0 auto",
+            borderRadius: "15px"
+          }}
         >
 
         <TextField
@@ -80,6 +86,18 @@ class LoginPage extends Component {
             <Link to="/">Cancel</Link>
           </div>
         </form>
+        <footer
+          style={{
+            backgroundColor: "rgb(66, 181, 216)",
+            color: "white",
+            bottom: 0,
+            position: "absolute",
+            width: "100%",
+            textAlign: "center"
+          }}
+        > 
+        <h5>Ⓒ<script>document.write( new Date().getFullYear() );</script></h5>
+        </footer>
       </div>
     );
   }

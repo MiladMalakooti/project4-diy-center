@@ -1,107 +1,108 @@
-import React, { Component } from "react";
-// import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './BaseView.css';
-import { withStyles } from "@material-ui/core/styles";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Typography from "@material-ui/core/Typography";
+import { withStyles } from '@material-ui/core/styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     minWidth: 300,
-    width: "100%"
+    width: '100%',
+    justifyContent: 'space-around',
+    alignItems: 'stretch'
   },
 
   image: {
-    position: "relative",
+    position: 'relative',
     height: 200,
-    [theme.breakpoints.down("xs")]: {
-      width: "100% !important", // Overrides inline-style
-      height: "100%"
+    [theme.breakpoints.down('xs')]: {
+      width: '100% !important',
+      height: '100%'
     },
-    "&:hover, &$focusVisible": {
+    '&:hover, &$focusVisible': {
       zIndex: 1,
-      "& $imageBackdrop": {
+      '& $imageBackdrop': {
         opacity: 0.15
       },
-      "& $imageMarked": {
+      '& $imageMarked': {
         opacity: 0
       },
-      "& $imageTitle": {
-        border: "4px solid currentColor"
+      '& $imageTitle': {
+        border: '4px solid currentColor'
       }
     }
   },
 
   focusVisible: {},
   imageButton: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     color: theme.palette.common.white
   },
   imageSrc: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundSize: "100% 100%",
-    backgroundPosition: "center 40%"
+    backgroundSize: '100% 100%',
+    backgroundPosition: 'center 40%'
   },
   imageBackdrop: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
     backgroundColor: theme.palette.common.black,
     opacity: 0.4,
-    transition: theme.transitions.create("opacity")
+    transition: theme.transitions.create('opacity')
   },
   imageTitle: {
-    position: "relative",
+    position: 'relative',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme
       .spacing.unit + 6}px`
   },
   imageMarked: {
-    height: 3,
-    width: 18,
+    height: 5,
+    width: 20,
     backgroundColor: theme.palette.common.white,
-    position: "absolute",
+    position: 'absolute',
     bottom: -2,
-    left: "calc(50% - 9px)",
-    transition: theme.transitions.create("opacity")
+    left: 'calc(50% - 9px)',
+    transition: theme.transitions.create('opacity')
   }
 });
 
 const images = [
   {
-    url: "./images/login.png",
-    title: "login",
-    width: "33%",
-    path: "/login"
+    url: './images/login.png',
+    title: 'login',
+    width: '33%',
+    path: '/login'
   },
   {
-    url: "./images/signup.png",
-    title: "sign up",
-    width: "34%",
-    path: "/signup"
+    url: './images/signup.png',
+    title: 'sign up',
+    width: '34%',
+    path: '/signup'
   },
   {
-    url: "./images/about.png",
-    title: "about us",
-    width: "33%",
-    path: "/about"
+    url: './images/about.png',
+    title: 'about us',
+    width: '33%',
+    path: '/about'
   }
 ];
 
@@ -132,9 +133,9 @@ function ButtonBases(props) {
 
               <Typography
                 className={classes.imageTitle}
-                component="span"
-                color="inherit"
-                variant="subtitl">
+                component='span'
+                color='inherit'
+                variant='subtitle1'>
 
                 {image.title}
                 <span className={classes.imageMarked} />
@@ -143,7 +144,7 @@ function ButtonBases(props) {
           </Link>
         </ButtonBase>
       ))}
-      <h1>DIY Center</h1>
+      <h1 style={{ color: 'rgb(216, 77, 66)' }}>DIY Center</h1>
     </div>
   );
 }

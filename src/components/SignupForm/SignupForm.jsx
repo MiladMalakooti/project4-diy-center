@@ -47,10 +47,15 @@ class SignupForm extends Component {
     return (
       <div className='container'>
         <form
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'}}
+        style={{
+            display: "flex",
+            backgroundColor: "rgb(216, 77, 66)",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "70vw",
+            padding: "30px",
+            margin: "0 auto",
+            borderRadius: "15px"}}
         >
           <TextField
             placeholder='First Name'

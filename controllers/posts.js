@@ -6,8 +6,8 @@ module.exports = {
   show,
   userPosts,
   likePost,
-  deleteComment,
   addCommentOnPost,
+  deleteComment,
   updatePost,
   deletePost
 };

@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'Post'
     }],
+    youtube: String,
+    pinterest: String,
+    instagram: String,
     bio: String,
     notifications: [String],
   },{

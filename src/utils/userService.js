@@ -1,33 +1,56 @@
 import tokenService from './tokenService';
+
 const BASE_URL = '/api/users/';
 
+
 export default {
-  signup, 
+  signup,
   getUser,
   logout,
   login,
-  getAllUsers
+  getAllUsers,
+  getNotifications,
+  updateProfile,
+  getUserFromServer,
 };
 
 
 function signup(user) {
-  return fetch(BASE_URL + 'signup', {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json'}),
-    body: JSON.stringify(user)
-  })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Email is taken!');
-  })
+  return (
+    fetch(BASE_URL + 'signup', {
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(user)
+    })
+      .then(res => {
+        if (res.ok) return res.json();
+        // Probably a duplicate email
+        throw new Error('Email already taken!');
+      })
+      // Parameter destructuring!
+      .then(({ token }) => tokenService.setToken(token))
+  );
+}
 
-  
-  .then(({token}) => tokenService.setToken(token));
-
+function getAllUsers() {
+  const options = {
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenService.getToken() }
+  };
+  return fetch(BASE_URL + 'users', options).then(res => res.json());
 }
 
 function getUser() {
+  
   return tokenService.getUserFromToken();
+}
+
+function getUserFromServer() {
+  const options = {
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + tokenService.getToken() }
+  };
+  return fetch(BASE_URL + 'user', options).then(res => res.json());
 }
 
 function logout() {
@@ -37,20 +60,31 @@ function logout() {
 function login(creds) {
   return fetch(BASE_URL + 'login', {
     method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json'}),
+    headers: new Headers({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(creds)
   })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Bad Credentials!');
-  })
-  .then(({token}) => tokenService.setToken(token));
+    .then(res => {
+      if (res.ok) return res.json();
+      throw new Error('Bad Credentials!');
+    })
+    .then(({ token }) => tokenService.setToken(token));
 }
 
-function getAllUsers() {
-  const options = {
+function getNotifications() {
+  return fetch(BASE_URL + 'notifications', {
     method: 'GET',
-    headers: new Headers({'Content-Type': 'application/json'}),
-  }  
-  return fetch(BASE_URL + 'users', options).then( res=>res.json() )
+    headers: { Authorization: 'Bearer ' + tokenService.getToken() }
+  }).then(res => res.json());
+}
+
+function updateProfile(user) {
+  const options = {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + tokenService.getToken()
+    }),
+    body: JSON.stringify(user)
+  };
+  return fetch(BASE_URL + 'updateprofile', options).then(res => res.json());
 }

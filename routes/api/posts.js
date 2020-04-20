@@ -2,13 +2,10 @@ const express = require('express');
 const router = express.Router();
 const postsCtrl = require('../../controllers/posts');
 
-/*---------- Public Routes ----------*/
+
 router.post('/', postsCtrl.create);
-
-
-/*---------- Protected Routes ----------*/
 router.use(require('../../config/auth'));    //
-router.post("/create-post", postsCtrl.create); //
+router.post('/create-post', postsCtrl.create); //
 router.get('/', checkAuth, postsCtrl.show); //
 router.get('/:username', checkAuth, postsCtrl.userPosts); //
 router.post('/likebtn', postsCtrl.likePost); //

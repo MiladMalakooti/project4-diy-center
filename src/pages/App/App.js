@@ -1,19 +1,22 @@
 
 import './App.css';
-import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
-import {Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Switch} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import {Redirect } from 'react-router-dom';
 import SignupPage from '../SignupPage/SignupPage';
+import AboutPage from "../AboutPage/AboutPage";
 import userService from '../../utils/userService';
 import postService from '../../utils/postService';
 import LoginPage from '../LoginPage/LoginPage';
 import BaseView from '../../components/BaseView/BaseView';
 import NavBar from '../../components/Navbar/Navbar';
 import HomePage from '../HomePage/HomePage';
+import Home from '../../components/Home/Home';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import CreatePostPage from '../CreatePostPage/CreatePostPage';
-import UserSearchedProfile from '../UserSearchedProfile/UserSearchedProfile'
+import UserSearchedProfile from '../UserSearchedProfile/UserSearchedProfile';
+import EditProfilePage from '../EditProfilePage/EditProfilePage';
 
 class App extends Component {
   constructor() {
@@ -66,7 +69,7 @@ class App extends Component {
     let postsCopy = [...this.state.posts];
     let postCopy = postsCopy.filter( p=> {return p._id === post._id});
     
-    const commentsCopy = postCopy[0].commentsfilter((c) => {
+    const commentsCopy = postCopy[0].comments.filter((c) => {
       return c._id !== comment._id
     });
     postCopy[0].comments=commentsCopy;
@@ -127,8 +130,7 @@ class App extends Component {
     const userPosts = await postService.userIndex();
     this.setState({ user, posts, userPosts });
   }
-  
-
+   
 
   render() {
     return (
@@ -142,7 +144,7 @@ class App extends Component {
             <Switch>
               <Route
                 exact
-                path='/'
+                path="/"
                 render={() =>
                   userService.getUser() ? (
                     <HomePage
@@ -150,18 +152,31 @@ class App extends Component {
                       user={userService.getUser()}
                       handleCommentSubmit={this.handleCommentSubmit}
                       handleLikeButton={this.handleLikeButton}
-                      handleCommentDelete={this.handleCommentDelete}
-                      handleUpdatePosts={this.handleUpdatePosts}
                       handleLogout={this.handleLogout}
+                      handleUpdatePosts={this.handleUpdatePosts}
+                      handleCommentDelete={this.handleCommentDelete}
                     />
                   ) : (
-                    <div />
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+                exact
+                path="/editprofile/:userId"
+                render={({history}) =>
+                  userService.getUser() ? (
+                    <EditProfilePage  
+                      history={history}
+                      handleUpdateUser={this.handleUpdateUser}
+                    />
+                  ) : (
+                    <Redirect to="/login" />
                   )
                 }
               />
               <Route
                 exact
-                path='/create-post'
+                path="/createpost"
                 render={({ history }) =>
                   userService.getUser() ? (
                     <CreatePostPage
@@ -169,73 +184,92 @@ class App extends Component {
                       user={userService.getUser()}
                     />
                   ) : (
-                    <Redirect to='/login' />
+                    <Redirect to="/login" />
                   )
                 }
               />
               <Route
-                path='/:username'
-                render={props =>
+                exact
+                path="/profile/:username"
+                render={( props ) =>
                   userService.getUser() ? (
                     <UserSearchedProfile
                       {...props}
+                      posts={this.state.posts}
+                      user={userService.getUser()}
+                      
+                      handleCommentSubmit={this.handleCommentSubmit}
+                      handleLikeButton={this.handleLikeButton}
                       users={userService.getAllUsers()}
                     />
                   ) : (
-
-                    <Redirect to='/login' />
+                    <Redirect to="/login" />
                   )
                 }
               />
 
               <Route
-              path='/:username'
-              render={props => userService.getUser() ? (
-                <ProfilePage
-                {...props}
-                user={userService.getUser()}
-                userPosts={this.state.userPosts}
-                handleCommentSubmitOnProfile={this.handleCommentSubmitOnProfile}
-                handleLikeBtnOnProfile={this.handleLikeBtnOnProfile}
-                handleCommentDeleteOnProfile={this.handleCommentDeleteOnProfile}
-                handlePostUpdate={this.handlePostUpdate}
-                handlePostDelete={this.handlePostDelete}
-                handleUpdateUserPosts={this.handleUpdateUserPosts}
-                /> ):( <LoginPage /> ) }
+                path="/:username"
+                render={props =>
+                  userService.getUser() ? (
+                    <ProfilePage
+                      {...props}
+                      user={userService.getUser()}
+                      userPosts={this.state.userPosts}
+                      handleCommentSubmitOnProfile={this.handleCommentSubmitOnProfile}
+                      handleLikeBtnOnProfile={this.handleLikeBtnOnProfile}
+                      handleCommentDeleteOnProfile={this.handleCommentDeleteOnProfile}
+                      handlePostUpdate={this.handlePostUpdate}
+                      handlePostDelete={this.handlePostDelete}
+                      handleUpdateUserPosts={this.handleUpdateUserPosts}
+                    />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
               />
-              </Switch>
-            </div> ) : (
-
-              <div>
-              <BaseView />
-              <Switch>
-                <Route
-                  exact
-                  path="/login"
-                  render={({ history }) => (
-                    <LoginPage
-                      history={history}
-                      handleSignupOrLogin={this.handleSignupOrLogin}
-                    />
-                  )}
-                />
-                
-                <Route
-                  exact
-                  path="/signup"
-                  render={({ history }) => (
-                    <SignupPage
-                      history={history}
-                      handleSignupOrLogin={this.handleSignupOrLogin}
-                    />
-                  )}
-                />
-              </Switch>
-            </div>
-          )}
-        </div>
-      );
-    }
+            </Switch>
+          </div>
+        ) : (
+          <div>
+            <BaseView />
+            <Switch>
+              <Route exact path='/' render={ ()=> <Home />} />
+              <Route
+                exact
+                path="/login"
+                render={({ history }) => (
+                  <LoginPage
+                    history={history}
+                    handleSignupOrLogin={this.handleSignupOrLogin}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={({ history }) => (
+                  <SignupPage
+                    history={history}
+                    handleSignupOrLogin={this.handleSignupOrLogin}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/about"
+                render={({ history }) => (
+                  <AboutPage
+                    history={history}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
+        )}
+      </div>
+    );
   }
-  
-  export default App;
+}
+
+export default App;

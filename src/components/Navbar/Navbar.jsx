@@ -42,6 +42,7 @@ const styles = theme => ({
 
   title: {
     display: 'none',
+    color: 'white',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
     }
@@ -170,7 +171,7 @@ class PrimarySearchAppBar extends React.Component {
           <IconButton color='inherit'>
             <AddIcon />
           </IconButton>
-          <p>Upload project</p>
+          <p>Upload Post</p>
           
         </MenuItem>
         </Link>
@@ -191,24 +192,22 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar style={{backgroundColor: '#123C69', position: 'fixed'}} position='static'>
+        <AppBar style={{backgroundColor: '#22a7b7', position: 'fixed'}} position='static'>
           <Toolbar>
             <IconButton
               className={classes.menuButton}
               color='inherit'
               aria-label='Open drawer'
             >
-              {/* <MenuIcon /> */}
             </IconButton>
 
             <Typography
               className={classes.title}
               variant='h6'
-              color='inherit'
+              color='#80deea'
               noWrap
             >
               <Link className='links logo' to='/'>
-                {/* <Home /> */}
                 DIY Center
               </Link>
             </Typography>
@@ -269,46 +268,3 @@ PrimarySearchAppBar.propTypes = {
 };
 
 export default withStyles(styles)(PrimarySearchAppBar);
-
-
-
-// function Navbar(props) {
-//   return (
-//     <>
-//     <nav>
-//       <div className='navbar navbar-bright navbar-expand-lg'>
-//         <Link to='/' className='navbar-brand'> DIY Center</Link>
-        
-//         <button
-//           className='navbar-toggler' type='button'
-//           data-toggle='collapse'
-//           data-target='#navbarNav'
-//           aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
-//              <span className='navbar-toggler-icon' />
-//           </button>
-//           <div className= 'collapse navbar-collapse' id='navbarNav'>
-//             <ul className='navbar-nav'>
-//               <li className='nav-item'> 
-//                 <Link className='nav-link' to=''>Search</Link>
-//               </li>
-
-//               <li className='nav-item'>
-//                 <Link className='nav-link' to={`/${props.user.user_name}`}>Profile</Link>
-//               </li>
-
-//               <li className='nav-item'>
-//                 <Link className='nav-link' to='/create-post'>Create Post</Link>
-//               </li>
-              
-//               <li className='nav-item'>
-//                 <Link className='nav-link' to='' onClick={props.handleLogout}>Log Out</Link>
-//               </li>
-//             </ul>
-//           </div>
-//         </div>
-//      </nav>
-//   </>
-//  );
-// }
-
-// export default Navbar;
